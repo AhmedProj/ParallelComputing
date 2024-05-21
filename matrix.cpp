@@ -36,6 +36,10 @@ float Matrix::get_value(int i, int j){
     return data[i * columns + j];
 }  
 
+void Matrix::set_all(){
+    fill(data, data + rows * columns, 2.378);
+}  
+
 void Matrix::print_matrix(){
     for(int i = 0; i < rows; i++){
         for(int j = 0; j < columns; j++){
