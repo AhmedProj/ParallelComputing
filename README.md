@@ -2,10 +2,11 @@
 
 ## Etapes pour utiliser le package
 
-1. Pour utiliser notre package il faut faire un clone du dépot au début : 
+1. Pour utiliser notre package il faut faire un clone du dépot au début :
+   
 ```git clone https://github.com/AhmedProj/ParallelComputing.git```
 
-2. Se placer dans la racine du projet et cloner le depot de pybind11 :  
+3. Se placer dans la racine du projet et cloner le depot de pybind11 :  
    
 ```cd ParallelComputing```  
 
