@@ -7,14 +7,14 @@
 
 2. Se placer dans la racine du projet et cloner le depot de pybind11:
    
-```bash
-cd ParallelComputing
-git clone https://github.com/pybind/pybind11.git
+```cd ParallelComputing```
+
+```git clone https://github.com/pybind/pybind11.git.```
 
 4. Executer les commandes suivantes pour compiler le projet et pouvoir utiliser le module avec python:
 
-   ```bash
-   mkdir build
-   cd build
-   cmake ..
-   make
+```bash
+mkdir build
+cd build
+cmake ..
+make
