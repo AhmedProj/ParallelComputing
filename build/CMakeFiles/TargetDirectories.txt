@@ -1,5 +1,0 @@
-/mnt/c/Users/danal/Desktop/pylorentz/llama2/repository/ParallelComputing/build/CMakeFiles/rebuild_cache.dir
-/mnt/c/Users/danal/Desktop/pylorentz/llama2/repository/ParallelComputing/build/CMakeFiles/edit_cache.dir
-/mnt/c/Users/danal/Desktop/pylorentz/llama2/repository/ParallelComputing/build/CMakeFiles/parallel_multiplication.dir
-/mnt/c/Users/danal/Desktop/pylorentz/llama2/repository/ParallelComputing/build/pybind11/CMakeFiles/rebuild_cache.dir
-/mnt/c/Users/danal/Desktop/pylorentz/llama2/repository/ParallelComputing/build/pybind11/CMakeFiles/edit_cache.dir

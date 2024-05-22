@@ -1,4 +1,0 @@
-# ninja log v5
-6	518	1716227592308123200	CMakeFiles/parallel_multiplication.dir/matrix.cpp.o	57bf00551a7fd382
-5	3778	1716227595566148400	CMakeFiles/parallel_multiplication.dir/main.cpp.o	2f782fc7e78ea63
-3800	5779	1716227597564610800	libparallel_multiplication.so	bfa573a5ea68b74d
