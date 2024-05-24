@@ -12,6 +12,9 @@ public:
     Matrix(const Matrix& matrix);
     void set_value(int i, int j, float value);
     float get_value(int i, int j);
+    int get_nrows();
+    int get_ncolumns();
+    void set_zero();
     void set_all();
     void print_matrix();        
     static Matrix multiplication(const Matrix& x, const Matrix& y);

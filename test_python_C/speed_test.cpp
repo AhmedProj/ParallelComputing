@@ -16,6 +16,8 @@ int main()
     A.set_all();  
     B.set_all();
 
+    cout << A.get_nrows() << endl;
+
     //A.print_matrix();
 
     //A.print_matrix();

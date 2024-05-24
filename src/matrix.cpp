@@ -34,10 +34,26 @@ void Matrix::set_value(int i, int j, float value){
 
 float Matrix::get_value(int i, int j){
     return data[i * columns + j];
+} 
+
+int Matrix::get_nrows(){
+    return rows;
+}  
+
+int Matrix::get_ncolumns(){
+    return columns;
+}  
+
+void Matrix::set_zero(){
+    fill(data, data + rows * columns, 0);
 }  
 
 void Matrix::set_all(){
     fill(data, data + rows * columns, 2.378);
+    for(int i=0; i < rows * columns; i++){
+        srand(i); // completely random time(NULL) instead i
+        data[i] = rand() / double(RAND_MAX);
+    }    
 }  
 
 void Matrix::print_matrix(){
@@ -55,6 +71,7 @@ Matrix Matrix::multiplication(const Matrix& x, const Matrix& y){
     }
 
     Matrix results(x.rows, y.columns);
+    results.set_zero(); // Added to enforce initialization to zero. Python issue
     for(int i = 0; i < x.rows * y.columns; i++){
         for(int j = 0; j < x.columns; j++){
             results.data[i] += x.data[(i / results.columns) * x.columns + j]*
@@ -68,6 +85,7 @@ Matrix Matrix::parallel_multiplication(const Matrix& x, const Matrix& y){
     int nProcessors = omp_get_max_threads();
     omp_set_num_threads(nProcessors);
     Matrix results(x.rows, y.columns);
+    results.set_zero(); // Added to enforce initialization to zero. Python issue
     int nsize = x.rows * y.columns;
     // Temporary arrays for each thread
     float** temp_result = new float*[nProcessors];
