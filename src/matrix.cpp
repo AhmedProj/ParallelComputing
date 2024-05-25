@@ -1,8 +1,10 @@
 #include "matrix.h"
 #include <iostream>
 #include <omp.h>
+#include <pybind11/numpy.h>
 
 using namespace std;
+namespace py = pybind11;
 
 Matrix::Matrix(int n, int m){
     rows = n;
@@ -44,15 +46,28 @@ int Matrix::get_ncolumns(){
     return columns;
 }  
 
+float* Matrix::get_data(){
+    return data;
+}
+
 void Matrix::set_zero(){
     fill(data, data + rows * columns, 0);
 }  
 
-void Matrix::set_all(){
-    fill(data, data + rows * columns, 2.378);
+void Matrix::set_random(){
     for(int i=0; i < rows * columns; i++){
         srand(i); // completely random time(NULL) instead i
         data[i] = rand() / double(RAND_MAX);
+    }    
+}  
+
+void Matrix::set_all(py::array_t<float> values){
+    py::buffer_info buf = values.request();
+
+    float *ptr = static_cast<float *>(buf.ptr);
+    int size = buf.shape[0];
+    for (int i = 0; i < size; i++){
+        data[i] = ptr[i];
     }    
 }  
 

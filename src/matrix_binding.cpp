@@ -11,9 +11,11 @@ PYBIND11_MODULE(ParallelComputing, m) {
         .def("set_value", &Matrix::set_value)
         .def("get_value", &Matrix::get_value)
         .def("get_nrows", &Matrix::get_nrows)
+        .def("get_data", &Matrix::get_data)
         .def("get_ncolumns", &Matrix::get_ncolumns)
         .def("set_zero", &Matrix::set_zero)
-        .def("set_all", &Matrix::set_all)
+        .def("set_all", &Matrix::set_all)        
+        .def("set_random", &Matrix::set_random)
         .def("print_matrix", &Matrix::print_matrix)
         .def_static("multiplication", &Matrix::multiplication)
         .def_static("parallel_multiplication", &Matrix::parallel_multiplication);
