@@ -46,8 +46,10 @@ int Matrix::get_ncolumns(){
     return columns;
 }  
 
-float* Matrix::get_data(){
-    return data;
+py::array_t<float> Matrix::to_numpy(){
+    int size = rows * columns;
+    py::array_t<float> array(size, data);
+    return array;
 }
 
 void Matrix::set_zero(){

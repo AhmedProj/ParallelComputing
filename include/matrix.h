@@ -15,7 +15,7 @@ public:
     float get_value(int i, int j);
     int get_nrows();
     int get_ncolumns();
-    float* get_data();
+    pybind11::array_t<float> to_numpy();
     void set_zero();
     void set_all(pybind11::array_t<float> values);    
     void set_random();
