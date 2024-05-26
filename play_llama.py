@@ -1,4 +1,5 @@
-from llama.model import Attention, ModelArgs
+from ParallelComputing import Matrix
+from model_llama2 import AttentionModified, ModelArgs
 import torch
 import torch.distributed as dist
 from fairscale.nn.model_parallel import initialize_model_parallel
@@ -11,6 +12,7 @@ def init_distributed():
 def setup_model_parallel():
     initialize_model_parallel(model_parallel_size_ = 1)
 
+
 if __name__ == "__main__":
     os.environ['WORLD_SIZE'] = '1'
     os.environ['RANK'] = '0'
@@ -21,14 +23,15 @@ if __name__ == "__main__":
 
     setup_model_parallel()
 
-    dimension = 8192 # 4096 (default)
+    dimension = 128 # 4096 (default)
     args = ModelArgs(dim = dimension)
-    attention = Attention(args)
+    attention = AttentionModified(args)
 
     y_dimension = dimension // 32
     input_tensor = torch.randn(32, y_dimension, dimension)
-    #print(attention.wq(input_tensor))
     start_pos = 0
     freq_cis = torch.randn(y_dimension, y_dimension // 2)
 
     attention.forward(input_tensor, start_pos, freq_cis, None)
+
+
