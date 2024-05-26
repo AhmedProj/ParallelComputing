@@ -26,7 +26,16 @@ D.set_all(input_2)
 result_bench = Matrix.multiplication(C, D)
 result_par = Matrix.parallel_multiplication(C, D)
 result_np = np.matmul(input_1, input_2)
+value = result_par.to_numpy().reshape(size, size)
+print(value, type(value))
+print('-------------------------------------------')
 
+result_bench.print_matrix()
+print("*****************************************************")
+result_par.print_matrix()
+print("*****************************************************")
+print(result_np)
+print(result_par.dimension(), result_par.shape())
 
 # Tensors
 

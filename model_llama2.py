@@ -295,14 +295,25 @@ class Attention(nn.Module):
         keys = keys.transpose(1, 2) # (bs, n_local_heads, cache_len + seqlen, head_dim)
         values = values.transpose(1, 2) # (bs, n_local_heads, cache_len + seqlen, head_dim)
         scores = torch.matmul(xq, keys.transpose(2, 3)) / math.sqrt(self.head_dim)
+        scores = scores.detach() # Needed to get a fair comparison
         if mask is not None:
             scores = scores + mask  # (bs, n_local_heads, seqlen, cache_len + seqlen)
         scores = F.softmax(scores.float(), dim=-1).type_as(xq)
         output = torch.matmul(scores, values)  # (bs, n_local_heads, seqlen, head_dim)
+        output = output.detach() # Needed to get a fair comparison
         output = output.transpose(1, 2).contiguous().view(bsz, seqlen, -1)
         return self.wo(output)
 
 def multiplication(tensor1, tensor2):
+    """ Function to multiply the tensors tensor1 and tensor 2 using the 
+        implementation developed in C++
+        
+        INPUT:
+            tensor1 : Rank-4 tensor
+            tensor2 : Rank-4 tensor. It must have the same dimensions as tensor1
+        OUTPUT:
+            tensor: It has the same dimensions as the original tensors
+    """
     m1 = Matrix(*tensor1.shape)
     m2 = Matrix(*tensor2.shape)  
 
