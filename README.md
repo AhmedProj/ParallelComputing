@@ -21,4 +21,4 @@
 
 3. Compile the project and make the python package accessible from any directory:
 
-```python setup.py install```
+```python python setup.py install
