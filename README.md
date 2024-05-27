@@ -1,21 +1,22 @@
 # ParallelComputing
 
-## Etapes pour utiliser le package
+## Prerequisites
+Install Cmake On Linux :
+```sudo apt update```
+```sudo apt install cmake```
 
-1. Pour utiliser notre package il faut faire un clone du dépot au début :
+## Steps tu use our package in Linux system
+
+1. To use our package you have first to clone the repository :
    
 ```git clone https://github.com/AhmedProj/ParallelComputing.git```
 
-3. Se placer dans la racine du projet et cloner le depot de pybind11 :  
+2. Then change directory and install requirements for python :  
    
 ```cd ParallelComputing```  
 
-```git clone https://github.com/pybind/pybind11.git```  
+```pip install -r requirements.txt```  
 
-4. Executer les commandes suivantes pour compiler le projet et pouvoir utiliser le module avec python:
+3. Compile the project and make the python package accessible from any directory:
 
-```bash
-mkdir build
-cd build
-cmake ..
-make
+```python setup.py install```
