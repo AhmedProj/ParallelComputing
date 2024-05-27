@@ -10,7 +10,7 @@ sudo apt update; sudo apt install cmake
 
 2. GPU device since first computations en Llama needs it. 
 
-## Steps tu use our package in Linux system
+## Steps to use our package in Linux system
 
 1. To use our package you have first to clone the repository :
    
