@@ -1,6 +1,7 @@
 # ParallelComputing
 
 ## Prerequisites
+
 1. Install Cmake On Linux :
 
 ```sudo apt update; sudo apt install cmake```
