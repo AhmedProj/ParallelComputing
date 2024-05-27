@@ -6,6 +6,7 @@
 using namespace std;
 namespace py = pybind11;
 
+// Constructor with parameters
 Matrix::Matrix(int n, int m, int p, int q){
     rows = n;
     columns = m;
@@ -19,14 +20,15 @@ Matrix::Matrix(int n, int m, int p, int q){
     } 
 } 
 
+// Default constructor
 Matrix::Matrix() {
 }
-
+// Deallocating memory
 Matrix::~Matrix() {
     delete[]data;
     data = nullptr;
     }
-
+// Copy constructor
 Matrix::Matrix(const Matrix& matrix){
     rows = matrix.rows;
     columns = matrix.columns;
@@ -39,7 +41,7 @@ Matrix::Matrix(const Matrix& matrix){
         data[i] = matrix.data[i];
     }
 }
-
+// Assigning the operator '='
 Matrix &Matrix::operator=(const Matrix& matrix) {
     if (this != &matrix) {
         // Delete existing data
@@ -57,18 +59,19 @@ Matrix &Matrix::operator=(const Matrix& matrix) {
     }
     return *this;      
 }        
-
+// Method to assign a value to a especific entry in a matrix
 void Matrix::set_value(int i, int j, float value){
     data[i * columns + j] = value;
 } 
-
+// Method to extract a especific value from a matrix
 float Matrix::get_value(int i, int j){
     return data[i * columns + j];
 } 
-
+// Inner function. Used to get the parameters from an object Matrix
 void Matrix::dims_values(){
     dims[0] = rows; dims[1] = columns; dims[2] = depth; dims[3] = dim4; 
 }
+// Method to obtain the total size of an array
 int Matrix::array_size(){
     int dim = dimension();
     int size = 1; 
@@ -77,6 +80,7 @@ int Matrix::array_size(){
     }
     return size;
 }
+// Method to obtain the dimension or rank of a tensor
 int Matrix::dimension(){
     int dim = 0;
     dims_values();
@@ -88,8 +92,8 @@ int Matrix::dimension(){
     }
     return dim;   
 }
-
- py::array_t<int> Matrix::shape(){
+// Method to output as numpy array the shape of an array
+py::array_t<int> Matrix::shape(){
     int dim = dimension();
     int* sizes = new int[dim];
     for (int i = 0; i < dim; i++){
@@ -99,7 +103,7 @@ int Matrix::dimension(){
     delete[] sizes;
     return array;
 }
-
+// Inner function. Method to output the shape of an array
 int Matrix::shape_inner(const Matrix& matrix){
     rows = matrix.rows;
     columns = matrix.columns;
@@ -114,8 +118,7 @@ int Matrix::shape_inner(const Matrix& matrix){
     }
     return dim;
 }
-
-
+// Method to transform an object Matrix to numpy
 py::array_t<float> Matrix::to_numpy(){
     int dim = dimension();
     int* sizes = new int[dim];
@@ -127,14 +130,14 @@ py::array_t<float> Matrix::to_numpy(){
     delete[] sizes;
     return array;
 }
-
+// Method to assign the value zero to all entries of an object Matrix
 void Matrix::set_zero(){
     int size = array_size();
     for(int i = 0; i < size; i++){
         data[i] = 0;
     }    
 }  
-
+// Method to assign random values to all entries of an object Matrix
 void Matrix::set_random(){
     int size = array_size();
     for(int i = 0; i < size; i++){
@@ -142,7 +145,7 @@ void Matrix::set_random(){
         data[i] = rand() / double(RAND_MAX);
     }    
 }  
-
+// Method that takes a numpy array and assign it to object Matrix
 void Matrix::set_all(py::array_t<float> values){
 
     py::buffer_info buf = values.request();
@@ -153,7 +156,7 @@ void Matrix::set_all(py::array_t<float> values){
         data[i] = ptr[i];
     }    
 }  
-
+// Method to print the entries of a matrix 
 void Matrix::print_matrix(){
     int dim = dimension();
     if (dim > 2){
@@ -167,7 +170,7 @@ void Matrix::print_matrix(){
         }  
     }      
 }          
-
+// Method to calculate the multiplication of two Matrix objects
 Matrix Matrix::multiplication(const Matrix& x, const Matrix& y){
     if (x.columns != y.rows) {
         throw invalid_argument("Incompatible matrices for multiplication");
@@ -183,7 +186,7 @@ Matrix Matrix::multiplication(const Matrix& x, const Matrix& y){
     }
     return results;
 }
-
+// Parallel implementation to calculate the multiplication of two Matrix objects
 Matrix Matrix::parallel_multiplication(const Matrix& x, const Matrix& y){ 
     if (x.columns != y.rows) {
         throw invalid_argument("Incompatible matrices for multiplication");
@@ -229,7 +232,7 @@ Matrix Matrix::parallel_multiplication(const Matrix& x, const Matrix& y){
 
     return results;
 } 
-
+// Parallel implementation to calculate the multiplication of two tensors of rank 4
 Matrix Matrix::tensor_multiplication(const Matrix& x, const Matrix& y){
     if (x.columns != y.columns || x.rows != y.rows || x.depth != y.depth
         || x.dim4 != y.dim4) {
