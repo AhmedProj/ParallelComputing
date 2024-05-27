@@ -4,6 +4,10 @@
 1. Install Cmake On Linux :
 
 ```sudo apt update; sudo apt install cmake```
+\```python
+def hello_world():
+    print("Hello, world!")
+\```
 
 2. GPU device since first computations en Llama needs it. 
 
