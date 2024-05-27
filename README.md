@@ -1,9 +1,11 @@
 # ParallelComputing
 
 ## Prerequisites
-Install Cmake On Linux :
-```sudo apt update```
-```sudo apt install cmake```
+1. Install Cmake On Linux :
+
+```sudo apt update; sudo apt install cmake```
+
+2. GPU device since first computations en Llama needs it. 
 
 ## Steps tu use our package in Linux system
 
