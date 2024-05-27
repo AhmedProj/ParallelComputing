@@ -1,3 +1,6 @@
+// Code to compare the execution time of the matrix implementation
+// parallelized and not parallelized
+
 #include <iostream>
 #include <omp.h>
 #include <chrono>
@@ -8,35 +11,27 @@ using namespace std::chrono;
 
 int main()
 {
-    //for(int size=100; size <= 1000; size+= 100){
-    int size = 5;
-    Matrix A(size, size);
-    Matrix B(size, size);
+    for(int size=100; size <= 1000; size+= 100){
+        int size = 5;
+        Matrix A(size, size);
+        Matrix B(size, size);
 
-    A.set_all();  
-    B.set_all();
+        A.set_random();  
+        B.set_random();
 
-    cout << A.get_nrows() << endl;
+        auto start = high_resolution_clock::now();
+        // Matrix result = Matrix::multiplication(A, B); // Not parallelized matrix multiplication
+        // result.print_matrix();
+        Matrix result2 = Matrix::parallel_multiplication(A, B); // Parallelized matrix multiplication
+        result2.print_matrix();
+        auto stop = high_resolution_clock::now();
 
-    //A.print_matrix();
+        // Time calculation in microseconds
+        auto duration = duration_cast<milliseconds>(stop - start);
 
-    //A.print_matrix();
-    //cout << "second matrix" << endl; 
-    //B.print_matrix();   
-
-    auto start = high_resolution_clock::now();
-    Matrix result = Matrix::multiplication(A, B);
-    Matrix result2 = Matrix::parallel_multiplication(A, B);
-    result.print_matrix();
-    result2.print_matrix();
-    auto stop = high_resolution_clock::now();
-
-    // Time calculation in microseconds
-    auto duration = duration_cast<milliseconds>(stop - start);
-
-    cout << "For size " << size << " it took by the function: "
-        << duration.count() << " milliseconds" << endl;
-    //}     
+        cout << "For size " << size << " it took by the function: "
+            << duration.count() << " milliseconds" << endl;
+    }     
 
     return 0;
 }
