@@ -8,15 +8,22 @@ from multiprocessing.context import Process
 
 from threading import Thread
 
+from ParallelComputing import Matrix
+
 process_count = 8
 matrix_size = 200
 random = Random()
-
+repeat = 10
 
 def generate_random_matrix_flat(matrix):
     for row in range(matrix_size):
         for col in range(matrix_size):
             matrix[row * matrix_size + col] = random.randint(-5, 5)
+
+def generate_random_matrix_square(matrix):
+    for row in range(matrix_size):
+        for col in range(matrix_size):
+            matrix[row][col] = random.randint(-5, 5)
 
 
 def work_out_row_process(id, matrix_a, matrix_b, result, work_start, work_complete):
@@ -60,7 +67,7 @@ if __name__ == '__main__':
     for p in range(process_count):
         Process(target=work_out_row_process, args=(p, matrix_a, matrix_b, result, work_start, work_complete)).start()
     start = time.time()
-    for t in range(10):
+    for t in range(repeat):
         generate_random_matrix_flat(matrix_a)
         generate_random_matrix_flat(matrix_b)
         for i in range(matrix_size * matrix_size):
@@ -77,7 +84,7 @@ if __name__ == '__main__':
     random = Random()
 
     start = time.time()
-    for t in range(10):
+    for t in range(repeat):
         generate_random_matrix_nested(matrix_a)
         generate_random_matrix_nested(matrix_b)
         result = [[0] * matrix_size for r in range(matrix_size)]
@@ -100,7 +107,7 @@ if __name__ == '__main__':
     for row in range(matrix_size):
         Thread(target=work_out_row_thread, args=([row])).start()
     start = time.time()
-    for t in range(10):
+    for t in range(repeat):
         generate_random_matrix_nested(matrix_a)
         generate_random_matrix_nested(matrix_b)
         result = [[0] * matrix_size for r in range(matrix_size)]
@@ -109,3 +116,16 @@ if __name__ == '__main__':
     end = time.time()
     print("Done, time taken", end - start)
 
+    #################################################
+    C = Matrix(matrix_size, matrix_size)
+    D = Matrix(matrix_size, matrix_size)
+    start = time.time()
+    for t in range(repeat):
+        generate_random_matrix_square(matrix_a)
+        generate_random_matrix_square(matrix_b)
+        C.set_all(matrix_a)
+        D.set_all(matrix_b)
+        result = Matrix.parallel_multiplication(C, D)
+    end = time.time()
+    print("Done C++ function, time taken", end - start)  
+    print('ABAJO')    
