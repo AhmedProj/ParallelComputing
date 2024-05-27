@@ -18,7 +18,8 @@
    
 ```cd ParallelComputing```  
 
-```pip install -r requirements.txt```  
+```python
+   pip install -r requirements.txt```  
 
 3. Compile the project and make the python package accessible from any directory:
 
